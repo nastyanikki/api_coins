@@ -1,13 +1,11 @@
 package ru.chsu.is31.year2025.nikitina.view;
 
 import ru.chsu.is31.year2025.nikitina.model.Coin;
-import ru.chsu.is31.year2025.nikitina.model.CoinFinder;
+import ru.chsu.is31.year2025.nikitina.model.CoinsList;
 import ru.chsu.is31.year2025.nikitina.model.coinranking.CoinsParse;
 import ru.chsu.is31.year2025.nikitina.model.coinranking.Coins_Api;
 import ru.chsu.is31.year2025.nikitina.model.coinranking.Request;
-
 import java.io.InputStream;
-import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleUser {
@@ -20,7 +18,8 @@ public class ConsoleUser {
             Coins_Api client = new Coins_Api(
                     "https",
                     "api.coinranking.com",
-                    "coinranking23d62881f86a7aace223cf2645dd4f2dc3f5704be7bff3f9");
+                    "coinranking23d62881f86a7aace223cf2645dd4f2dc3f5704be7bff3f9"
+            );
 
             InputStream input = client.getCoins();
 
@@ -30,6 +29,9 @@ public class ConsoleUser {
             }
 
             Request request = CoinsParse.parse_coins(input);
+
+            CoinsList.getCrip_coins().addAll(request.getCoins());
+
             boolean running = true;
 
             while (running) {
@@ -45,11 +47,11 @@ public class ConsoleUser {
                 switch (choice) {
                     case "1":
                         while (true) {
-                            System.out.print("Введите название монеты, например Bitcoin (или нажмите Enter для выхода): ");
+                            System.out.print("Введите название монеты, например Bitcoin (или Enter для выхода): ");
                             String inputName = scanner.nextLine();
                             if (inputName.isBlank()) break;
 
-                            Coin foundByName = CoinFinder.findByName(request.getCoins(), inputName);
+                            Coin foundByName = CoinsList.findByName(inputName);
                             if (foundByName != null) {
                                 System.out.println("Найдена монета:\n" + foundByName);
                             } else {
@@ -60,11 +62,11 @@ public class ConsoleUser {
 
                     case "2":
                         while (true) {
-                            System.out.print("Введите символ монеты, например BTC (или нажмите Enter для выхода): ");
+                            System.out.print("Введите символ монеты, например BTC (или Enter для выхода): ");
                             String inputSymbol = scanner.nextLine();
                             if (inputSymbol.isBlank()) break;
 
-                            Coin foundBySymbol = CoinFinder.findBySymbol(request.getCoins(), inputSymbol);
+                            Coin foundBySymbol = CoinsList.findBySymbol(inputSymbol);
                             if (foundBySymbol != null) {
                                 System.out.println("Найдена монета:\n" + foundBySymbol);
                             } else {
@@ -74,7 +76,7 @@ public class ConsoleUser {
                         break;
 
                     case "3":
-                        System.out.println("Всего монет: " + request.getCoins().size());
+                        System.out.println("Всего монет: " + CoinsList.getCrip_coins().size());
                         break;
 
                     case "4":
@@ -83,7 +85,7 @@ public class ConsoleUser {
                         break;
 
                     default:
-                        System.out.println("Неверный выбор. Пожалуйста, введите число от 1 до 4.");
+                        System.out.println("Неверный выбор. Введите число от 1 до 4.");
                 }
             }
 

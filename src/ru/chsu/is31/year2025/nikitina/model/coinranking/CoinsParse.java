@@ -1,6 +1,7 @@
 package ru.chsu.is31.year2025.nikitina.model.coinranking;
 
 import ru.chsu.is31.year2025.nikitina.model.Coin;
+import ru.chsu.is31.year2025.nikitina.model.CoinsList;
 import javax.json.*;
 import java.io.InputStream;
 import java.text.ParseException;
@@ -56,10 +57,10 @@ public class CoinsParse {
                     coinObj.isNull("wrappedTo") ? null : coinObj.getString("wrappedTo", null)
             );
 
-            ListCoins.getCrip_coins().add(crc);
+            CoinsList.getCrip_coins().add(crc);
         }
 
-        return new Request(status, st,ListCoins.getCrip_coins() );
+        return new Request(status, st, CoinsList.getCrip_coins() );
     }
 
     private static String getSafeJsonNumber(JsonObject obj, String key) {

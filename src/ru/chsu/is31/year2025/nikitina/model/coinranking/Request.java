@@ -1,7 +1,6 @@
 package ru.chsu.is31.year2025.nikitina.model.coinranking;
 
 import ru.chsu.is31.year2025.nikitina.model.Coin;
-
 import java.util.List;
 
 public class Request {
