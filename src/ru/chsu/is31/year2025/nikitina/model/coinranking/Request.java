@@ -20,16 +20,6 @@ public class Request {
         return crip_coins;
     }
 
-    public Coin findCoinByName(String name) {
-        if (name == null) return null;
-        for (Coin coin : crip_coins) {
-            if (coin.getName() != null && coin.getName().equalsIgnoreCase(name.trim())) {
-                return coin;
-            }
-        }
-        return null;
-    }
-
     @Override
     public String toString() {
         return "Coin{" +

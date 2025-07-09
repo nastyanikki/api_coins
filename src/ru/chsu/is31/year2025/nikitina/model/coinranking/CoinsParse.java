@@ -1,12 +1,9 @@
 package ru.chsu.is31.year2025.nikitina.model.coinranking;
 
 import ru.chsu.is31.year2025.nikitina.model.Coin;
-
 import javax.json.*;
 import java.io.InputStream;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class CoinsParse {
@@ -33,7 +30,6 @@ public class CoinsParse {
                 getSafeJsonString(statsJson, "total24hVolume")
         );
 
-        List<Coin> crip_coins = new ArrayList<>();
         JsonArray coinsArray = jsobj.getJsonObject("data").getJsonArray("coins");
 
         for (JsonValue value : coinsArray) {
@@ -60,10 +56,10 @@ public class CoinsParse {
                     coinObj.isNull("wrappedTo") ? null : coinObj.getString("wrappedTo", null)
             );
 
-            crip_coins.add(crc);
+            ListCoins.getCrip_coins().add(crc);
         }
 
-        return new Request(status, st, crip_coins);
+        return new Request(status, st,ListCoins.getCrip_coins() );
     }
 
     private static String getSafeJsonNumber(JsonObject obj, String key) {

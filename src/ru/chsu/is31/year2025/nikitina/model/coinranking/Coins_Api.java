@@ -31,16 +31,18 @@ public class Coins_Api {
             int code = conn.getResponseCode();
             if (code >= 200 && code <= 300) {
                 return conn.getInputStream();
-            } else {
-                errorMessage = "Ошибка от API: HTTP " + code;
+            }
+            else {
+                errorMessage = "Ошибка от API:" + code;
                 return conn.getErrorStream();
             }
+
         } catch (MalformedURLException | URISyntaxException e) {
-            errorMessage = "Неверный URL/URI: " + e.getMessage();
+            errorMessage = "Неверный URL: " + e.getMessage();
+
         } catch (IOException e) {
             errorMessage = "Сетевая ошибка: " + e.getMessage();
         }
-
         return null;
     }
 
